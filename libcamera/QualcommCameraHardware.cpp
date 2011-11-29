@@ -1813,7 +1813,7 @@ bool QualcommCameraHardware::native_jpeg_encode(void)
 
    /* Set maker and model. Read the NOTICE before changing this */
    char model[PROP_VALUE_MAX];
-   const char *maker = "InferiorHumanOrgans";
+   const char *maker = "LG VM670 3.2MP";
    int modelLen = 0;
 
    __system_property_get("ro.product.device", model);

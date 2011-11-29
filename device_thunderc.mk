@@ -21,10 +21,7 @@ PRODUCT_PACKAGES += \
     e2fsck \
     SpareParts \
     CMWallpapers \
-    LiveWallpapers \
     LiveWallpapersPicker \
-    MagicSmokeWallpapers \
-    VisualizationWallpapers
 
 DISABLE_DEXPREOPT := false
 
@@ -39,6 +36,7 @@ PRODUCT_COPY_FILES += \
 # Keylayouts
 PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/usr/keylayout/thunder_keypad.kl:system/usr/keylayout/thunder_keypad.kl \
+    device/lge/thunderc/files/usr/keylayout/7k_handset.kl:system/usr/keylayout/7k_handset.kl \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/usr/keychars/thunder_keypad.kcm.bin:system/usr/keychars/thunder_keypad.kcm.bin \
 
 # Board-specific init (does not support charging in "power off" state yet)
@@ -106,6 +104,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/kernel/$(SUB_MODEL)/wireless.ko:system/lib/modules/wireless.ko \
     device/lge/thunderc/files/kernel/$(SUB_MODEL)/tun.ko:system/lib/modules/tun.ko \
+    device/lge/thunderc/files/kernel/$(SUB_MODEL)/cifs.ko:system/lib/modules/cifs.ko \
     device/lge/thunderc/files/etc/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/wl/nvram.txt:system/etc/wl/nvram.txt \
     device/lge/thunderc/files/etc/dhcpcd/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
@@ -201,10 +200,15 @@ PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/etc/media_profiles.xml:system/etc/media_profiles.xml \
     device/lge/thunderc/files/etc/init.d/mvdalvik.sh:system/etc/init.d/01mvdalvik \
 
+# Apps
+PRODUCT_COPY_FILES += \
+    device/lge/thunderc/files/apps/CarHomeGoogle.apk:system/app/CarHomeGoogle.apk \
+    device/lge/thunderc/files/apps/LauncherPro.apk:system/app/LauncherPro.apk \
+
 # Let's use our own GPS config file
 PRODUCT_COPY_FILES += device/lge/thunderc/files/etc/gps.conf:system/etc/gps.conf
 
-$(call inherit-product, build/target/product/full.mk)
+$(call inherit-product, build/target/product/small_base.mk)
 
 # We don't need to pull in the languages_full.mk manually because it'll get clobbered anyhow by full.mk
 # mdpi goes last so that the janky default locale/region code can pick a sane default
@@ -252,16 +256,16 @@ ifeq ($(SUB_MODEL),LW690)
     # We're on Cricket (In progress)
     CDMA_GOOGLE_BASE := android-cricket-us
     CDMA_CARRIER_ALPHA := Cricket
-    CDMA_CARRIER_NUMERIC := 310016
-    BLUETOOTH_FIRMWARE := BCM4325D1_004.002.004.0285.0301.hcd
+    CDMA_CARRIER_NUMERIC := 310000
+    BLUETOOTH_FIRMWARE := BCM4325D1_004.002.004.0285.0288.hcd
 endif
 
 ifeq ($(SUB_MODEL),MS690)
     # We're on MetroPCS (TODO)
     CDMA_GOOGLE_BASE := android-metropcs-us
     CDMA_CARRIER_ALPHA := MetroPCS
-    CDMA_CARRIER_NUMERIC := 311660
-    BLUETOOTH_FIRMWARE := BCM4325D1_004.002.004.0285.0288.hcd
+    CDMA_CARRIER_NUMERIC := 310027
+    BLUETOOTH_FIRMWARE := BCM4325D1_004.002.004.0218.0248.hcd
 endif
 
 # Bluetooth

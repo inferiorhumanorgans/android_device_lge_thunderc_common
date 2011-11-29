@@ -27,6 +27,7 @@ BOARD_USES_QCOM_LIBS := true
 BOARD_USES_QCOM_LIBRPC := true
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_FORCE_STATIC_A2DP := true
 
 # Using GPSSHIM so that we can use the LG/Qualcomm binary blobs because
 # the open source stuff seems to be buggy, and Qualcomm doesn't believe

@@ -23,12 +23,12 @@
                 android:key="backup_data"
                 android:title="@string/backup_data_title"
                 android:summary="@string/backup_data_summary"
-                android:persistent="false" />
+                android:persistent="true" />
         <CheckBoxPreference
                 android:key="auto_restore"
                 android:title="@string/auto_restore_title"
                 android:summary="@string/auto_restore_summary"
-                android:persistent="false" />
+                android:persistent="true" />
     </PreferenceCategory>
 
 </PreferenceScreen>
