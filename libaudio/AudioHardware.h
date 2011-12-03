@@ -31,7 +31,7 @@ extern "C" {
 #include "msm_audio_voicememo.h"
 }
 
-namespace android {
+namespace android_audio_legacy {
 
 // ----------------------------------------------------------------------------
 // Kernel driver interface
@@ -223,7 +223,7 @@ private:
             bool                    mBluetoothNrec;
             uint32_t                mBluetoothId;
             AudioStreamOutMSM72xx   *mOutput;
-            SortedVector <AudioStreamInMSM72xx*>   mInputs;
+            android::SortedVector <AudioStreamInMSM72xx*>   mInputs;
             msm_snd_endpoint        *mSndEndpoints;
             int                     mNumSndEndpoints;
             uint32_t                mCurSndDevice;
@@ -231,7 +231,7 @@ private:
             int                     m7xsnddriverfd;
             bool                    mDualMicEnabled;
             int                     mTtyMode;
-            Mutex                   mLock;
+            android::Mutex          mLock;
 
     class AudioStreamOutMSM72xx : public AudioStreamOut {
     public:
@@ -296,6 +296,8 @@ private:
         virtual uint32_t        getInputFramesLost() const { return 0; }
                 uint32_t        devices() { return mDevices; }
                 int             state() const { return mState; }
+        virtual status_t        addAudioEffect(effect_interface_s**) { return 0;}
+        virtual status_t        removeAudioEffect(effect_interface_s**) { return 0;}
 
     private:
                 AudioHardware   *mHardware;
@@ -332,6 +334,6 @@ protected:
 
 // ----------------------------------------------------------------------------
 
-}; // namespace android
+}; // namespace android_audio_legacy
 
 #endif // ANDROID_AUDIO_HARDWARE_MSM72XX_H

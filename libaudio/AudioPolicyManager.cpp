@@ -20,7 +20,7 @@
 #include "AudioPolicyManager.h"
 #include <media/mediarecorder.h>
 
-namespace android {
+namespace android_audio_legacy {
 
 
 
@@ -45,8 +45,10 @@ extern "C" void destroyAudioPolicyManager(AudioPolicyInterface *interface)
 AudioPolicyManager::AudioPolicyManager(AudioPolicyClientInterface *clientInterface)
                 : AudioPolicyManagerBase(clientInterface)
 {
+#if 0
     mAvailableOutputDevices |= AudioSystem::DEVICE_OUT_SPEAKER_IN_CALL;
     mAvailableOutputDevices |= AudioSystem::DEVICE_OUT_SPEAKER_RING;
+#endif
 }
 
 uint32_t AudioPolicyManager::getDeviceForStrategy(routing_strategy strategy, bool fromCache)
@@ -126,8 +128,10 @@ uint32_t AudioPolicyManager::getDeviceForStrategy(routing_strategy strategy, boo
                 if (device) break;
             }
 #endif
+#if 0
             device = availableOutputDevices & AudioSystem::DEVICE_OUT_SPEAKER_IN_CALL;
             if (device) break;
+#endif
 
             device = availableOutputDevices & AudioSystem::DEVICE_OUT_SPEAKER;
             if (device == 0) {
@@ -138,7 +142,9 @@ uint32_t AudioPolicyManager::getDeviceForStrategy(routing_strategy strategy, boo
     break;
 
     case STRATEGY_SONIFICATION:
+#if 0
     case STRATEGY_MEDIA_SONIFICATION:
+#endif
 
         // If incall, just select the STRATEGY_PHONE device: The rest of the behavior is handled by
         // handleIncallSonification().
@@ -147,10 +153,12 @@ uint32_t AudioPolicyManager::getDeviceForStrategy(routing_strategy strategy, boo
             break;
         }
         if (strategy == STRATEGY_SONIFICATION) {
+#if 0
             device = mAvailableOutputDevices & AudioSystem::DEVICE_OUT_SPEAKER_RING;
             if (device == 0) {
                 LOGE("getDeviceForStrategy() speaker device not found");
             }
+#endif
         }
         // The second device used for sonification is the same as the device used by media strategy
         // FALL THROUGH
@@ -214,9 +222,11 @@ status_t AudioPolicyManager::setDeviceConnectionState(AudioSystem::audio_devices
                                                   const char *device_address)
 {
 
+#if 0
     if(!strcmp(device_address,"reset_fm")) {
         resetFm(device);
     }
+#endif
 
     LOGV("setDeviceConnectionState() device: %x, state %d, address %s", device, state, device_address);
 

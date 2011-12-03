@@ -44,7 +44,7 @@
 #define TTY_MODE_KEY "tty_mode"
 #define MAX_VOLUME 7.0
 
-namespace android {
+namespace android_audio_legacy {
 static int audpre_index, tx_iir_index;
 static void *acoustic;
 const uint32_t AudioHardware::inputSamplingRates[] = {
@@ -294,7 +294,7 @@ AudioStreamOut *AudioHardware::openOutputStream(
         uint32_t devices, int *format, uint32_t *channels, uint32_t *sampleRate, status_t *status)
 {
     { // scope for the lock
-        Mutex::Autolock lock(mLock);
+        android::Mutex::Autolock lock(mLock);
 
         // only one output stream allowed
         if (mOutput) {
@@ -320,7 +320,7 @@ AudioStreamOut *AudioHardware::openOutputStream(
 }
 
 void AudioHardware::closeOutputStream(AudioStreamOut *out) {
-    Mutex::Autolock lock(mLock);
+    android::Mutex::Autolock lock(mLock);
     if (mOutput == 0 || mOutput != out) {
         LOGW("Attempt to close invalid output stream");
     } else {
@@ -369,7 +369,7 @@ AudioStreamIn *AudioHardware::openInputStream(
 }
 
 void AudioHardware::closeInputStream(AudioStreamIn *in) {
-    Mutex::Autolock lock(mLock);
+    android::Mutex::Autolock lock(mLock);
 
     ssize_t index = mInputs.indexOf((AudioStreamInMSM72xx *)in);
     if (index < 0) {
@@ -404,7 +404,7 @@ bool AudioHardware::checkOutputStandby()
 
 status_t AudioHardware::setMicMute(bool state)
 {
-    Mutex::Autolock lock(mLock);
+    android::Mutex::Autolock lock(mLock);
     return setMicMute_nosync(state);
 }
 
@@ -494,6 +494,7 @@ status_t AudioHardware::setParameters(const String8 &keyValuePairs)
         doRouting(NULL);
     }
 
+#if 0
     int devices;
     if (param.getInt(String8(AudioParameter::keyFmOn), devices) == NO_ERROR) {
        LOGE("devices = %d", devices);
@@ -502,6 +503,7 @@ status_t AudioHardware::setParameters(const String8 &keyValuePairs)
        LOGE("devices = %d", devices);
        setFmOnOff(false);
     }
+#endif
 
     return NO_ERROR;
 }
@@ -1211,14 +1213,14 @@ status_t AudioHardware::setVoiceVolume(float v)
         LOGI("For TTY device in FULL or VCO mode, the volume level is set to: %d \n", vol);
     }
 
-    Mutex::Autolock lock(mLock);
+    android::Mutex::Autolock lock(mLock);
     set_volume_rpc(SND_DEVICE_CURRENT, SND_METHOD_VOICE, vol, m7xsnddriverfd);
     return NO_ERROR;
 }
 
 status_t AudioHardware::setMasterVolume(float v)
 {
-    Mutex::Autolock lock(mLock);
+    android::Mutex::Autolock lock(mLock);
     int vol = ceil(v * MAX_VOLUME);
     LOGI("Set master volume to %d.\n", vol);
     set_volume_rpc(SND_DEVICE_FM_HEADSET, SND_METHOD_VOICE, vol, m7xsnddriverfd);
@@ -1246,6 +1248,7 @@ status_t AudioHardware::setMasterVolume(float v)
 
 status_t AudioHardware::setFmVolume(float v)
 {
+#if 0
     float ratio = 5;
     int volume = (unsigned int)(AudioSystem::logToLinear(v * ratio)/127.0 * 20.0);
     
@@ -1256,6 +1259,7 @@ status_t AudioHardware::setFmVolume(float v)
          LOGE("set_volume_fm error.");
          return -EIO;
      }
+#endif
     return NO_ERROR;
 }
 
@@ -1325,7 +1329,7 @@ status_t AudioHardware::doRouting(AudioStreamInMSM72xx *input)
 {
     /* currently this code doesn't work without the htc libacoustic */
 
-    Mutex::Autolock lock(mLock);
+    android::Mutex::Autolock lock(mLock);
     uint32_t outputDevices = mOutput->devices();
     status_t ret = NO_ERROR;
     uint32_t new_snd_device = SND_DEVICE_UNINIT;
@@ -1417,6 +1421,7 @@ status_t AudioHardware::doRouting(AudioStreamInMSM72xx *input)
                 new_snd_device = SND_DEVICE_SPEAKER;
             }
             new_post_proc_feature_mask = (ADRC_ENABLE | EQ_ENABLE | RX_IIR_ENABLE | MBADRC_ENABLE);
+#if 0
         } else  if (outputDevices & AudioSystem::DEVICE_OUT_FM) {
             LOGI("Routing audio to Headset\n");
             new_snd_device = SND_DEVICE_FM_HEADSET;
@@ -1433,6 +1438,7 @@ status_t AudioHardware::doRouting(AudioStreamInMSM72xx *input)
             LOGI("Routing audio to In-call Speaker\n");
             new_snd_device = SND_DEVICE_SPEAKER_RING;
             new_post_proc_feature_mask = (ADRC_ENABLE | EQ_ENABLE | RX_IIR_ENABLE | MBADRC_ENABLE);
+#endif
         } else {
             LOGI("Routing audio to Handset\n");
             new_snd_device = SND_DEVICE_HANDSET;
@@ -1473,7 +1479,7 @@ status_t AudioHardware::doRouting(AudioStreamInMSM72xx *input)
 
 status_t AudioHardware::checkMicMute()
 {
-    Mutex::Autolock lock(mLock);
+    android::Mutex::Autolock lock(mLock);
     if (mMode != AudioSystem::MODE_IN_CALL) {
         setMicMute_nosync(true);
     }
@@ -2282,4 +2288,4 @@ void NetlinkHandler::onEvent(NetlinkEvent *evt) {
     }
 }
 
-}; // namespace android
+}; // namespace android_audio_legacy
