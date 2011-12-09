@@ -28,6 +28,10 @@ PRODUCT_PACKAGES += \
 
 DISABLE_DEXPREOPT := false
 
+# Touchscreen config
+PRODUCT_COPY_FILES += \
+    device/lge/thunderc/files/touch_mcs6000.idc:/system/usr/idc/touch_mcs6000.idc
+
 # Backlight
 PRODUCT_COPY_FILES += \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/lib/hw/lights.thunderc.so:system/lib/hw/lights.thunderc.so \
