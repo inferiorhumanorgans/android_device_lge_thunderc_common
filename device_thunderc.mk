@@ -94,6 +94,11 @@ PRODUCT_COPY_FILES += \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/firmware/yamato_pfp.fw:system/etc/firmware/yamato_pfp.fw \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/firmware/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw \
 
+# Webkit acceleration for smoother scrolling and zoom
+PRODUCT_COPY_FILES += \
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/lib/libwebkitaccel.so:system/lib/libwebkitaccel.so \
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/lib/libwebkitaccel.so:obj/lib/libwebkitaccel.so
+
 # Camera
 PRODUCT_COPY_FILES += \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/lib/liboemcamera.so:system/lib/liboemcamera.so \
