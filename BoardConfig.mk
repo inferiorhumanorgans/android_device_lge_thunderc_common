@@ -105,6 +105,3 @@ TARGET_PROVIDES_LIBAUDIO := true
 BOARD_HAVE_FM_RADIO := true
 BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
 TARGET_SF_NEEDS_REAL_DIMENSIONS := true
-
-# add webkit acceleration for smoother scrolling and zooming
-WEBCORE_ACCELERATED_SCROLLING := true
