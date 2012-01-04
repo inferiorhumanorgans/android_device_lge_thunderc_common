@@ -1,4 +1,6 @@
-## hopemini@lge.com, 20100416
+on boot-pause
+        # Charging while powered off
+        exec sbin/chargerlogo
 
 on boot
 	# Update the mountpoints to noatime
