@@ -38,12 +38,11 @@ PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/usr/keylayout/thunder_keypad.kl:system/usr/keylayout/thunder_keypad.kl \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/usr/keychars/thunder_keypad.kcm.bin:system/usr/keychars/thunder_keypad.kcm.bin \
 
-# Board-specific init (does not support charging in "power off" state yet)
+# Board-specific init
 PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/init.thunderc.rc:root/init.thunderc.rc \
     device/lge/thunderc/files/ueventd.thunderc.rc:root/ueventd.thunder.rc \
-    device/lge/thunderc/files/initlogo.rle:root/initlogo.rle \
-    device/lge/thunderc/files/chargerlogo:root/chargerlogo \
+    device/lge/thunderc/files/chargerlogo:root/sbin/chargerlogo \
     device/lge/thunderc/files/chargerimages/battery_ani_01.rle:root/chargerimages/battery_ani_01.rle \
     device/lge/thunderc/files/chargerimages/battery_ani_02.rle:root/chargerimages/battery_ani_02.rle \
     device/lge/thunderc/files/chargerimages/battery_ani_03.rle:root/chargerimages/battery_ani_03.rle \
@@ -61,6 +60,25 @@ PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/chargerimages/battery_wait_ani_01.rle:root/chargerimages/battery_wait_ani_01.rle \
     device/lge/thunderc/files/chargerimages/battery_wait_ani_01.rle:root/chargerimages/battery_wait_ani_02.rle \
     device/lge/thunderc/files/etc/init.local.rc:/system/etc/init.local.rc
+
+# Locate vendor bootimage files, or use generic files if not present.
+#
+# Note we currently use a single bootlogo binary, which is from VM/Sprint.
+# It requires files 12 named "sprint_power_on_%02d.rle".  If the bootlogo
+# from other models can be located and dissected, the bootlogo binary may
+# become model specific.
+#
+# Also note that both the bootlogo and chargerlogo files might fit in
+# better under vendor/lge/thunderc/proprietary.
+PRODUCT_COPY_FILES += \
+    device/lge/thunderc/files/bootlogo:root/sbin/bootlogo
+
+BOOTIMAGE_FILES := $(wildcard device/lge/thunderc/files/$(SUB_MODEL)/bootimages/*.rle)
+ifeq ($(BOOTIMAGE_FILES),)
+BOOTIMAGE_FILES := $(wildcard device/lge/thunderc/files/GENERIC/bootimages/*.rle)
+endif
+PRODUCT_COPY_FILES += \
+    $(foreach f,$(BOOTIMAGE_FILES),$(f):root/bootimages/$(notdir $(f)))
 
 # 2D (using proprietary because of poor performance of open source libs)
 PRODUCT_COPY_FILES += \
