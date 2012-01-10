@@ -1,3 +1,19 @@
+# This does the initial RLE animation for the vendor logo.
+# Taken verbatim from the stock init.rc.
+service bootlogo /sbin/bootlogo
+  user root
+  group root
+  oneshot
+
+# This does offline charging:
+#  * If booted via power button, chargerlogo will immediately exit, allowing
+#    the boot to proceed normally.
+#  * If booted via USB cable, chargerlogo will run indefinitely, blocking the
+#    boot process from proceeding any further.
+on early-boot
+  exec /sbin/chargerlogo
+  start bootlogo
+
 on boot-pause
         # Charging while powered off
         exec sbin/chargerlogo
