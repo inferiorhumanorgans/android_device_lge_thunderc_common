@@ -37,6 +37,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/usr/keylayout/thunder_keypad.kl:system/usr/keylayout/thunder_keypad.kl \
     device/lge/thunderc/files/usr/keylayout/7k_handset.kl:system/usr/keylayout/7k_handset.kl \
+    device/lge/thunderc/files/handset-keypress:system/bin/handset-keypress \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/usr/keychars/thunder_keypad.kcm.bin:system/usr/keychars/thunder_keypad.kcm.bin \
 
 # Board-specific init
@@ -45,6 +46,9 @@ PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/ueventd.thunderc.rc:root/ueventd.thunder.rc \
     device/lge/thunderc/files/initlogo.rle:root/initlogo.rle \
     device/lge/thunderc/files/chargerlogo:root/sbin/chargerlogo \
+    device/lge/thunderc/files/ftmpower:root/sbin/ftmpower \
+    device/lge/thunderc/files/playmp3:system/bin/playmp3 \
+    device/lge/thunderc/files/PowerOn.mp3:system/sounds/poweron/PowerOn.mp3 \
     device/lge/thunderc/files/chargerimages/battery_ani_01.rle:root/chargerimages/battery_ani_01.rle \
     device/lge/thunderc/files/chargerimages/battery_ani_02.rle:root/chargerimages/battery_ani_02.rle \
     device/lge/thunderc/files/chargerimages/battery_ani_03.rle:root/chargerimages/battery_ani_03.rle \
@@ -61,7 +65,8 @@ PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/chargerimages/black_bg.rle:root/chargerimages/black_bg.rle \
     device/lge/thunderc/files/chargerimages/battery_wait_ani_01.rle:root/chargerimages/battery_wait_ani_01.rle \
     device/lge/thunderc/files/chargerimages/battery_wait_ani_01.rle:root/chargerimages/battery_wait_ani_02.rle \
-    device/lge/thunderc/files/etc/init.local.rc:/system/etc/init.local.rc
+    device/lge/thunderc/files/etc/init.local.rc:/system/etc/init.local.rc \
+    device/lge/thunderc/files/BacksideUpdater.apk:system/app/BacksideUpdater.apk
 
 # Locate vendor bootimage files, or use generic files if not present.
 #
