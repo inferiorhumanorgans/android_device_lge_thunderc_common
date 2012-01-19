@@ -46,7 +46,6 @@ PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/ueventd.thunderc.rc:root/ueventd.thunder.rc \
     device/lge/thunderc/files/initlogo.rle:root/initlogo.rle \
     device/lge/thunderc/files/chargerlogo:root/sbin/chargerlogo \
-    device/lge/thunderc/files/ftmpower:root/sbin/ftmpower \
     device/lge/thunderc/files/playmp3:system/bin/playmp3 \
     device/lge/thunderc/files/PowerOn.mp3:system/sounds/poweron/PowerOn.mp3 \
     device/lge/thunderc/files/chargerimages/battery_ani_01.rle:root/chargerimages/battery_ani_01.rle \
