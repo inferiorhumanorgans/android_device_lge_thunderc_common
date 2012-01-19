@@ -1,5 +1,5 @@
+# Bootlogo and chargerlogo were taken from the stock OV init.rc
 # This does the initial RLE animation for the vendor logo.
-# Taken verbatim from the stock init.rc.
 service bootlogo /sbin/bootlogo
   user root
   group root
@@ -13,10 +13,6 @@ service bootlogo /sbin/bootlogo
 on early-boot
   exec /sbin/chargerlogo
   start bootlogo
-
-on boot-pause
-        # Charging while powered off
-        exec sbin/chargerlogo
 
 on boot
 	# Update the mountpoints to noatime
@@ -134,6 +130,12 @@ on boot
 	mkdir /data/radio 0770 radio radio
 	chown system radio /dev/rtc1
 	chmod 0660 radio /dev/rtc1
+
+# This does the bootsound
+service bootsound /system/bin/playmp3
+  user root
+  group root
+  oneshot
 
 # LGE_CHANGE_S, [jisung.yang@lge.com] 2010-04-24, <make wifi directory>
 # WIFI
