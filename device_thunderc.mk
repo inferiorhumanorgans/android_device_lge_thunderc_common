@@ -21,7 +21,9 @@ PRODUCT_PACKAGES += \
     e2fsck \
     SpareParts \
     CMWallpapers \
-    LiveWallpapersPicker
+    LiveWallpapersPicker \
+    CMBootanimation \
+    BacksideUpdater
 
 DISABLE_DEXPREOPT := false
 
@@ -32,6 +34,11 @@ PRODUCT_COPY_FILES += \
 # Publish that we support the live wallpaper feature.
 PRODUCT_COPY_FILES += \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
+
+# Include extra bootanimations
+PRODUCT_COPY_FILES += \
+    device/lge/thunderc/files/cyanogenmod_bootanimation.zip:system/media/cyanogenmod_bootanimation.zip \
+    device/lge/thunderc/files/particle_bootanimation.zip:system/media/particle_bootanimation.zip
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
@@ -46,8 +53,6 @@ PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/ueventd.thunderc.rc:root/ueventd.thunder.rc \
     device/lge/thunderc/files/initlogo.rle:root/initlogo.rle \
     device/lge/thunderc/files/chargerlogo:root/sbin/chargerlogo \
-    device/lge/thunderc/files/playmp3:system/bin/playmp3 \
-    device/lge/thunderc/files/PowerOn.mp3:system/sounds/poweron/PowerOn.mp3 \
     device/lge/thunderc/files/chargerimages/battery_ani_01.rle:root/chargerimages/battery_ani_01.rle \
     device/lge/thunderc/files/chargerimages/battery_ani_02.rle:root/chargerimages/battery_ani_02.rle \
     device/lge/thunderc/files/chargerimages/battery_ani_03.rle:root/chargerimages/battery_ani_03.rle \
@@ -65,7 +70,6 @@ PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/chargerimages/battery_wait_ani_01.rle:root/chargerimages/battery_wait_ani_01.rle \
     device/lge/thunderc/files/chargerimages/battery_wait_ani_01.rle:root/chargerimages/battery_wait_ani_02.rle \
     device/lge/thunderc/files/etc/init.local.rc:/system/etc/init.local.rc \
-    device/lge/thunderc/files/BacksideUpdater.apk:system/app/BacksideUpdater.apk
 
 # Locate vendor bootimage files, or use generic files if not present.
 #
