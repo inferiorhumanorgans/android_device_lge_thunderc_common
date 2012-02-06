@@ -52,7 +52,10 @@ PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/init.thunderc.rc:root/init.thunderc.rc \
     device/lge/thunderc/files/ueventd.thunderc.rc:root/ueventd.thunder.rc \
     device/lge/thunderc/files/initlogo.rle:root/initlogo.rle \
+    device/lge/thunderc/files/logo.rle:root/logo.rle \
     device/lge/thunderc/files/chargerlogo:root/sbin/chargerlogo \
+    device/lge/thunderc/files/ftmpower:root/sbin/ftmpower \
+    device/lge/thunderc/files/battery_charging:system/bin/battery_charging \
     device/lge/thunderc/files/chargerimages/battery_ani_01.rle:root/chargerimages/battery_ani_01.rle \
     device/lge/thunderc/files/chargerimages/battery_ani_02.rle:root/chargerimages/battery_ani_02.rle \
     device/lge/thunderc/files/chargerimages/battery_ani_03.rle:root/chargerimages/battery_ani_03.rle \
@@ -222,7 +225,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/etc/media_profiles.xml:system/etc/media_profiles.xml \
-    device/lge/thunderc/files/etc/init.d/mvdalvik.sh:system/etc/init.d/01mvdalvik \
+    device/lge/thunderc/files/etc/init.d/mvdalvik.sh:system/etc/init.d/01mvdalvik
 
 # Let's use our own GPS config file
 PRODUCT_COPY_FILES += device/lge/thunderc/files/etc/gps.conf:system/etc/gps.conf

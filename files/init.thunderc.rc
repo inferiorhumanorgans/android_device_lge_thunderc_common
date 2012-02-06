@@ -1,17 +1,21 @@
-# Bootlogo and chargerlogo were taken from the stock OV init.rc
+# Charging while powered off
+on boot-pause
+        exec sbin/chargerlogo
+
 # This does the initial RLE animation for the vendor logo.
+# Taken verbatim from the stock init.rc.
 service bootlogo /sbin/bootlogo
   user root
   group root
   oneshot
 
-# Thanks to Tom Marshall aka tdmcode for the following hooks
-#*If booted via charger cable, boot-cold hook is caught,
-# so run chargerlogo for offline charging
-#*If rebooted, boot-warm hook is caught, so boot normally
-on boot-cold
-  exec /sbin/chargerlogo
+# This does offline charging:
+# * If booted via power button, chargerlogo will immediately exit, allowing
+# the boot to proceed normally.
+# * If booted via USB cable, chargerlogo will run indefinitely, blocking the
+# boot process from proceeding any further.
 on early-boot
+  exec /sbin/chargerlogo
   start bootlogo
 
 on boot
@@ -153,6 +157,10 @@ on boot
 
 # Collect ramconsole data
 	copy /proc/last_kmsg /data/dontpanic/last_kmsg
+        copy /proc/sys/kernel/hotplug /data/dontpanic/hotplug
+        copy /proc/sys/kernel/poweroff_cmd /data/dontpanic/poweroff_cmd
+        copy /proc/sys/kernel/random/boot_id /data/dontpanic/boot_id
+        copy /proc/sysvipc/msg /data/dontpanic/sysvipc_msg
 	chown root log /data/dontpanic/last_kmsg
 	chmod 0640 /data/dontpanic/last_kmsg
 
