@@ -9,13 +9,8 @@ service bootlogo /sbin/bootlogo
   group root
   oneshot
 
-# This does offline charging:
-# * If booted via power button, chargerlogo will immediately exit, allowing
-# the boot to proceed normally.
-# * If booted via USB cable, chargerlogo will run indefinitely, blocking the
-# boot process from proceeding any further.
+# * If booted via power button
 on early-boot
-  exec /sbin/chargerlogo
   start bootlogo
 
 on boot
