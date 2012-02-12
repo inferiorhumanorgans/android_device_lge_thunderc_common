@@ -44,18 +44,14 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/usr/keylayout/thunder_keypad.kl:system/usr/keylayout/thunder_keypad.kl \
     device/lge/thunderc/files/usr/keylayout/7k_handset.kl:system/usr/keylayout/7k_handset.kl \
-    device/lge/thunderc/files/handset-keypress:system/bin/handset-keypress \
-    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/usr/keychars/thunder_keypad.kcm.bin:system/usr/keychars/thunder_keypad.kcm.bin \
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/usr/keychars/thunder_keypad.kcm.bin:system/usr/keychars/thunder_keypad.kcm.bin
 
 # Board-specific init
 PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/init.thunderc.rc:root/init.thunderc.rc \
     device/lge/thunderc/files/ueventd.thunderc.rc:root/ueventd.thunder.rc \
     device/lge/thunderc/files/initlogo.rle:root/initlogo.rle \
-    device/lge/thunderc/files/logo.rle:root/logo.rle \
     device/lge/thunderc/files/chargerlogo:root/sbin/chargerlogo \
-    device/lge/thunderc/files/ftmpower:root/sbin/ftmpower \
-    device/lge/thunderc/files/battery_charging:system/bin/battery_charging \
     device/lge/thunderc/files/chargerimages/battery_ani_01.rle:root/chargerimages/battery_ani_01.rle \
     device/lge/thunderc/files/chargerimages/battery_ani_02.rle:root/chargerimages/battery_ani_02.rle \
     device/lge/thunderc/files/chargerimages/battery_ani_03.rle:root/chargerimages/battery_ani_03.rle \
@@ -72,7 +68,7 @@ PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/chargerimages/black_bg.rle:root/chargerimages/black_bg.rle \
     device/lge/thunderc/files/chargerimages/battery_wait_ani_01.rle:root/chargerimages/battery_wait_ani_01.rle \
     device/lge/thunderc/files/chargerimages/battery_wait_ani_01.rle:root/chargerimages/battery_wait_ani_02.rle \
-    device/lge/thunderc/files/etc/init.local.rc:/system/etc/init.local.rc \
+    device/lge/thunderc/files/etc/init.local.rc:/system/etc/init.local.rc
 
 # Locate vendor bootimage files, or use generic files if not present.
 #
@@ -92,6 +88,10 @@ BOOTIMAGE_FILES := $(wildcard device/lge/thunderc/files/GENERIC/bootimages/*.rle
 endif
 PRODUCT_COPY_FILES += \
     $(foreach f,$(BOOTIMAGE_FILES),$(f):root/bootimages/$(notdir $(f)))
+
+# Bootsound (copy shell script)
+PRODUCT_COPY_FILES += \
+    vendor/cyanogen/prebuilt/common/bin/bootsound:system/bin/bootsound
 
 # 2D (using proprietary because of poor performance of open source libs)
 PRODUCT_COPY_FILES += \
@@ -143,7 +143,7 @@ PRODUCT_COPY_FILES += \
 
 # SD Card
 PRODUCT_COPY_FILES += \
-    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/vold.fstab:system/etc/vold.fstab \
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/vold.fstab:system/etc/vold.fstab
 
 # Samba CIFS support, thanks for the module Bob! (bobzhome@cheerful.com)
 PRODUCT_COPY_FILES += \
@@ -153,7 +153,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/etc/AudioFilter.csv:system/etc/AudioFilter.csv \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/lib/libaudioeq.so:system/lib/libaudioeq.so \
-    device/lge/thunderc/files/etc/AutoVolumeControl.txt:system/etc/AutoVolumeControl.txt \
+    device/lge/thunderc/files/etc/AutoVolumeControl.txt:system/etc/AutoVolumeControl.txt
 
 # Device permissions
 PRODUCT_COPY_FILES += \
@@ -165,11 +165,11 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
     frameworks/base/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
     frameworks/base/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
-    frameworks/base/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
+    frameworks/base/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml
 
 # LGE services
 PRODUCT_COPY_FILES += \
-    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/bin/qmuxd:system/bin/qmuxd \
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/bin/qmuxd:system/bin/qmuxd
 
 # RIL
 PRODUCT_COPY_FILES += \
@@ -196,7 +196,7 @@ PRODUCT_COPY_FILES += \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/lib/libbcmwl.so:system/lib/libbcmwl.so \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/lib/libdss.so:system/lib/libdss.so \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/lib/libril.so:system/lib/libril.so \
-    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/bin/rild:system/bin/rild \
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/bin/rild:system/bin/rild
 
 # OMX
 PRODUCT_COPY_FILES += \
@@ -225,7 +225,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     device/lge/thunderc/files/etc/media_profiles.xml:system/etc/media_profiles.xml \
-    device/lge/thunderc/files/etc/init.d/mvdalvik.sh:system/etc/init.d/09mvdalvik
+    device/lge/thunderc/files/etc/init.d/mvdalvik.sh:system/etc/init.d/11mvdalvik
 
 # Let's use our own GPS config file
 PRODUCT_COPY_FILES += device/lge/thunderc/files/etc/gps.conf:system/etc/gps.conf
