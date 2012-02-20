@@ -23,6 +23,7 @@ PRODUCT_PACKAGES += \
     CMWallpapers \
     LiveWallpapersPicker \
     CMBootanimation \
+    CMBackgroundChooser \
     BacksideUpdater
 
 DISABLE_DEXPREOPT := false
