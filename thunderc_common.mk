@@ -17,21 +17,16 @@ PRODUCT_PACKAGES += \
     e2fsck \
     SpareParts \
     CMWallpapers \
+    LiveWallpapers \
     LiveWallpapersPicker \
-    CMBootanimation \
-    CMBackgroundChooser \
-    BacksideUpdater
+    MagicSmokeWallpapers \
+    VisualizationWallpapers
 
 DISABLE_DEXPREOPT := false
 
 # Publish that we support the live wallpaper feature.
 PRODUCT_COPY_FILES += \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
-
-# Include extra bootanimations
-PRODUCT_COPY_FILES += \
-    device/lge/thunderc/files/cyanogenmod_bootanimation.zip:system/media/cyanogenmod_bootanimation.zip \
-    device/lge/thunderc/files/particle_bootanimation.zip:system/media/particle_bootanimation.zip
 
 # Kernel
 LOCAL_KERNEL := device/lge/thunderc_$(SUB_MODEL)/files/kernel/zImage
@@ -120,29 +115,6 @@ PRODUCT_COPY_FILES += device/lge/thunderc_common/files/etc/gps.conf:system/etc/g
 PRODUCT_COPY_FILES += \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/lib/hw/lights.thunderc.so:system/lib/hw/lights.thunderc.so \
 
-# Locate vendor bootimage files, or use generic files if not present.
-#
-# Note we currently use a single bootlogo binary, which is from VM/Sprint.
-# It requires files 12 named "sprint_power_on_%02d.rle".  If the bootlogo
-# from other models can be located and dissected, the bootlogo binary may
-# become model specific.
-#
-# Also note that both the bootlogo and chargerlogo files might fit in
-# better under vendor/lge/thunderc/proprietary.
-PRODUCT_COPY_FILES += \
-    device/lge/thunderc/files/bootlogo:root/sbin/bootlogo
-
-BOOTIMAGE_FILES := $(wildcard device/lge/thunderc/files/$(SUB_MODEL)/bootimages/*.rle)
-ifeq ($(BOOTIMAGE_FILES),)
-BOOTIMAGE_FILES := $(wildcard device/lge/thunderc/files/GENERIC/bootimages/*.rle)
-endif
-PRODUCT_COPY_FILES += \
-    $(foreach f,$(BOOTIMAGE_FILES),$(f):root/bootimages/$(notdir $(f)))
-
-# Bootsound (copy shell script)
-PRODUCT_COPY_FILES += \
-    vendor/cyanogen/prebuilt/common/bin/bootsound:system/bin/bootsound
-
 # 2D (using proprietary because of poor performance of open source libs)
 PRODUCT_COPY_FILES += \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/lib/hw/gralloc.default.so:system/lib/hw/gralloc.default.so \
@@ -189,11 +161,7 @@ PRODUCT_COPY_FILES += \
 
 # SD Card
 PRODUCT_COPY_FILES += \
-    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/vold.fstab:system/etc/vold.fstab
-
-# Samba CIFS support, thanks for the module Bob! (bobzhome@cheerful.com)
-PRODUCT_COPY_FILES += \
-    device/lge/thunderc/files/kernel/$(SUB_MODEL)/cifs.ko:system/lib/modules/cifs.ko
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/vold.fstab:system/etc/vold.fstab \
 
 # Audio
 PRODUCT_COPY_FILES += \
@@ -227,7 +195,7 @@ PRODUCT_COPY_FILES += \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/lib/libbcmwl.so:system/lib/libbcmwl.so \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/lib/libdss.so:system/lib/libdss.so \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/lib/libril.so:system/lib/libril.so \
-    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/bin/rild:system/bin/rild
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/bin/rild:system/bin/rild \
 
 # The Vortex doesn't seem to have this library.
 ifneq ($(SUB_MODEL),VS660)
@@ -253,10 +221,6 @@ PRODUCT_COPY_FILES += \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/lib/libOmxVidEnc.so:system/lib/libOmxVidEnc.so \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/lib/libOmxWmaDec.so:system/lib/libOmxWmaDec.so \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/lib/libOmxWmvDec.so:system/lib/libOmxWmvDec.so
-
-# CND
-PRODUCT_COPY_FILES += \
-    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/bin/cnd:system/bin/cnd
 
 ifeq ($(SUB_MODEL),VS660)
   PRODUCT_COPY_FILES += \
@@ -284,7 +248,6 @@ PRODUCT_DEVICE := thunderc_$(SUB_MODEL)
 PRODUCT_MANUFACTURER := LGE
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.warmboot.capability=1 \
     ro.com.google.clientidbase=$(CDMA_GOOGLE_BASE) \
     ro.cdma.home.operator.alpha=$(CDMA_CARRIER_ALPHA) \
     ro.cdma.home.operator.numeric=$(CDMA_CARRIER_NUMERIC) \
@@ -314,3 +277,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #    CDMA_CARRIER_NUMERIC := 310016
 #    BLUETOOTH_FIRMWARE := BCM4325D1_004.002.004.0285.0301.hcd
 #endif
+
