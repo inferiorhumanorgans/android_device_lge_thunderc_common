@@ -1,18 +1,3 @@
-# Charging while powered off
-on boot-pause
-        exec sbin/chargerlogo
-
-# This does the initial RLE animation for the vendor logo.
-# Taken verbatim from the stock init.rc.
-service bootlogo /sbin/bootlogo
-  user root
-  group root
-  oneshot
-
-# * If booted via power button
-on early-boot
-  start bootlogo
-
 # This does the initial RLE animation for the vendor logo.
 # Taken verbatim from the stock init.rc.
 service bootlogo /sbin/bootlogo
