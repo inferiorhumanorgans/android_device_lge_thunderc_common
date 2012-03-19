@@ -1,5 +1,4 @@
-#
-# Copyright (C) 2008 The Android Open Source Project
+# Copyright (C) 2012 Tom Marshall
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,16 +11,25 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-# This file is executed by build/envsetup.sh, and can use anything
-# defined in envsetup.sh.
-#
-# In particular, you can add lunch options with the add_lunch_combo
-# function: add_lunch_combo generic-eng
 
-add_lunch_combo cyanogen_thunderc_VM670-eng
-add_lunch_combo cyanogen_thunderc_LS670-eng
-add_lunch_combo cyanogen_thunderc_MS690-eng
-add_lunch_combo cyanogen_thunderc_US670-eng
-add_lunch_combo cyanogen_thunderc_VS660-eng
+ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),thunderc)
+
+LOCAL_PATH:= $(call my-dir)
+include $(CLEAR_VARS)
+
+LOCAL_MODULE_TAGS := optional
+
+LOCAL_SRC_FILES := bootlogo.c
+
+LOCAL_MODULE := bootlogo
+
+LOCAL_FORCE_STATIC_EXECUTABLE := true
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)/sbin
+LOCAL_STATIC_LIBRARIES := libpng libz libm libcutils libc 
+LOCAL_C_INCLUDES += external/zlib external/libpng
+
+include $(BUILD_EXECUTABLE)
+
+endif
+
