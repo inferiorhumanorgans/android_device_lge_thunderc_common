@@ -16,11 +16,9 @@ PRODUCT_PACKAGES += \
     erase_image \
     e2fsck \
     SpareParts \
-    CMWallpapers \
-    LiveWallpapers \
     LiveWallpapersPicker \
-    MagicSmokeWallpapers \
-    VisualizationWallpapers
+    CMBackgroundChooser \
+    BacksideUpdater
 
 DISABLE_DEXPREOPT := false
 
@@ -57,6 +55,15 @@ PRODUCT_COPY_FILES += \
     device/lge/thunderc_common/files/init.thunderc.rc:root/init.thunderc.rc \
     device/lge/thunderc_common/files/ueventd.thunderc.rc:root/ueventd.thunder.rc \
     device/lge/thunderc_common/files/etc/init.local.rc:/system/etc/init.local.rc
+
+# Add extra bootanimations for bootanimation chooser
+PRODUCT_COPY_FILES += \
+    vendor/cyanogen/prebuilt/mdpi/media/backup_n_flash_bootanimation.zip:/system/media/backup_n_flash_bootanimation.zip \
+    vendor/cyanogen/prebuilt/mdpi/media/backup_n_flash_bootanimation.zip:/system/media/cm9_bootanimation.zip
+
+# Bootsound (copy shell script)
+PRODUCT_COPY_FILES += \
+    vendor/cyanogen/prebuilt/common/bin/bootsound:system/bin/bootsound
 
 # Off-mode charging pieces
 PRODUCT_COPY_FILES += \
@@ -248,6 +255,7 @@ PRODUCT_DEVICE := thunderc_$(SUB_MODEL)
 PRODUCT_MANUFACTURER := LGE
 
 PRODUCT_PROPERTY_OVERRIDES += \
+    ro.warmboot.capability=1 \
     ro.com.google.clientidbase=$(CDMA_GOOGLE_BASE) \
     ro.cdma.home.operator.alpha=$(CDMA_CARRIER_ALPHA) \
     ro.cdma.home.operator.numeric=$(CDMA_CARRIER_NUMERIC) \
@@ -270,3 +278,4 @@ PRODUCT_PROPERTY_OVERRIDES += \
 #    CDMA_CARRIER_NUMERIC := 310016
 #    BLUETOOTH_FIRMWARE := BCM4325D1_004.002.004.0285.0301.hcd
 #endif
+
